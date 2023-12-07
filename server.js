@@ -31,7 +31,7 @@ app.get("/edit/:id", async (req, res) => {
   console.log("edit");
   try {
     const response = await axios.get(`${API_URL}/posts/${req.params.id}`);
-    console.log(response.data);
+    // console.log(response.data);
     res.render("modify.ejs", {
       heading: "Edit Post",
       submit: "Update Post",
@@ -45,9 +45,9 @@ app.get("/edit/:id", async (req, res) => {
 // Create a new post
 app.post("/api/posts", async (req, res) => {
   try {
-    // console.log(req.body.title);
+    console.log("Create Post");
     const response = await axios.post(`${API_URL}/posts`, req.body);
-    console.log(response.data);
+    // console.log(response.data);
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error creating post" });
@@ -56,15 +56,13 @@ app.post("/api/posts", async (req, res) => {
 
 // Partially update a post
 app.post("/api/posts/:id", async (req, res) => {
-  console.log("called");
-  console.log(req.body);
-  console.log(req.params.id);
+  console.log("Update Post");
   try {
     const response = await axios.patch(
       `${API_URL}/posts/${req.params.id}`,
       req.body
     );
-    console.log(response.data);
+    // console.log(response.data);
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error updating post" });
@@ -73,6 +71,7 @@ app.post("/api/posts/:id", async (req, res) => {
 
 // Delete a post
 app.get("/api/posts/delete/:id", async (req, res) => {
+  console.log("Delete Post");
   try {
     await axios.delete(`${API_URL}/posts/${req.params.id}`);
     res.redirect("/");

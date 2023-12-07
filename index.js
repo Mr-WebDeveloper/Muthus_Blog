@@ -8,27 +8,35 @@ const port = 4000;
 let posts = [
   {
     id: 1,
-    title: "The Rise of Decentralized Finance",
+    title: "5G Connectivity: Enabling the Future of Communication",
     content:
-      "Decentralized Finance (DeFi) is an emerging and rapidly evolving field in the blockchain industry. It refers to the shift from traditional, centralized financial systems to peer-to-peer finance enabled by decentralized technologies built on Ethereum and other blockchains. With the promise of reduced dependency on the traditional banking sector, DeFi platforms offer a wide range of services, from lending and borrowing to insurance and trading.",
-    author: "Alex Thompson",
-    date: "2023-08-01T10:00:00Z",
+      "The advent of 5G technology has ushered in a new era of connectivity, promising faster data speeds, lower latency, and enhanced network reliability. This technological leap is not only transforming communication but also fueling innovations like augmented reality (AR), virtual reality (VR), and the Internet of Things (IoT). With 5G, we can expect a seamless and interconnected world, empowering diverse industries and shaping the way we experience digital content and services.",
+    author: "Muthu Kamatchi",
+    date: "2023-10-10T09:15:00Z",
   },
   {
     id: 2,
-    title: "The Impact of Artificial Intelligence on Modern Businesses",
+    title: "Artificial Intelligence in Healthcare",
     content:
-      "Artificial Intelligence (AI) is no longer a concept of the future. It's very much a part of our present, reshaping industries and enhancing the capabilities of existing systems. From automating routine tasks to offering intelligent insights, AI is proving to be a boon for businesses. With advancements in machine learning and deep learning, businesses can now address previously insurmountable problems and tap into new opportunities.",
-    author: "Mia Williams",
-    date: "2023-08-05T14:30:00Z",
+    "Artificial Intelligence (AI) is revolutionizing healthcare, offering solutions for diagnostics, personalized medicine, and patient care. Machine learning algorithms analyze vast datasets to identify patterns and make predictions, aiding in early disease detection and treatment planning. AI applications also streamline administrative tasks, allowing healthcare professionals to focus more on patient care. As AI technologies advance, they hold the potential to make healthcare more accessible, efficient, and tailored to individual patient needs.",
+    author: "Muthu Kamatchi",
+    date: "2023-10-05T14:30:00Z",
   },
   {
     id: 3,
-    title: "Sustainable Living: Tips for an Eco-Friendly Lifestyle",
+    title: "Quantum Computing Revolution",
     content:
-      "Sustainability is more than just a buzzword; it's a way of life. As the effects of climate change become more pronounced, there's a growing realization about the need to live sustainably. From reducing waste and conserving energy to supporting eco-friendly products, there are numerous ways we can make our daily lives more environmentally friendly. This post will explore practical tips and habits that can make a significant difference.",
-    author: "Samuel Green",
-    date: "2023-08-10T09:15:00Z",
+      "Quantum computing stands at the forefront of technological innovation, promising unparalleled computational power. Unlike classical computers that use bits, quantum computers leverage qubits, allowing for parallel processing and the potential to solve complex problems exponentially faster. As researchers make strides in overcoming challenges like maintaining qubit coherence, industries are exploring quantum applications for cryptography, optimization, and drug discovery.",
+    author: "Muthu Kamatchi",
+    date: "2023-10-01T10:00:00Z",
+  },
+  {
+    id: 4,
+    title: "Blockchain: Beyond Cryptocurrency",
+    content:
+      "While initially recognized for powering cryptocurrencies, blockchain technology has evolved into a versatile solution with applications across various industries. Its decentralized and tamper-resistant nature ensures transparency and security in processes such as supply chain management, voting systems, and digital identity verification. As blockchain continues to mature, it holds the potential to reshape traditional business models and establish new standards for trust and accountability.",
+    author: "Muthu Kamatchi",
+    date: "2023-10-05T14:30:00Z",
   },
 ];
 
@@ -38,28 +46,22 @@ let lastId = 3;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Write your code here//
 
-//CHALLENGE 1: GET All posts
+//GET All posts
 app.get("/posts", (req, res) => {
   // console.log(posts);
   res.json(posts);
 });
 
-//CHALLENGE 2: GET a specific post by id
+//GET a specific post by id
 app.get("/posts/:id", (req, res) => {
   const new_id = parseInt(req.params.id); 
-  // console.log(new_id);
   const index = posts.findIndex((post) => post.id === new_id);
-  // const index = new_id-1;
-  // console.log("index values -> " + index1 + " m k " + index);
-  // console.log(posts[index]);
   res.json(posts[index]);
 });
 
-//CHALLENGE 3: POST a new post
+//POST a new post
 app.post("/posts", (req, res) => {
-//  console.log(req.body);
   const id = posts.length + 1;
   const new_title = req.body.title;
   const new_content = req.body.content;
@@ -76,25 +78,20 @@ app.post("/posts", (req, res) => {
   res.json(posts);
 });
 
-//CHALLENGE 4: PATCH a post when you just want to update one parameter
+//PATCH a post when you just want to update one parameter
 app.patch("/posts/:id", (req, res) => {
   console.log("patch");
   const id = parseInt(req.params.id);
   const index = posts.findIndex((post) => post.id === id);
-  console.log(id);
+  // console.log(id);
   const date = new Date();
   const cur_date = date.toISOString();
-  // var content = req.body.content;
-  // if(content != "")
-  //   content = posts[index].content;
   var title = req.body.title;
   var author = req.body.author;
   if(title == "")
     title = posts[index].title;
   if(author == "")
     author = posts[index].author;
-  // console.log(title); 
-  // console.log(author); 
   posts[index] = { 
     id: id,
     title: title,
@@ -105,7 +102,7 @@ app.patch("/posts/:id", (req, res) => {
   res.json(posts);
 })
 
-//CHALLENGE 5: DELETE a specific post by providing the post id.
+//DELETE a specific post by providing the post id.
 app.delete("/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = posts.findIndex((post) => post.id === id);
